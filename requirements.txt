@@ -5,3 +5,5 @@ pluggy==1.7.0
 Pygments==2.20.0
 playwright==1.63.0
 ruff==0.17.0
+fastapi
+uvicorn[standard]
