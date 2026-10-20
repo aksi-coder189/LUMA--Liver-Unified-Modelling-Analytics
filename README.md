@@ -157,5 +157,3 @@ Surface colors and zone hotspots map run-normalized TG, ROS, and ECM proxies. Th
 - Report import reads supported text/CSV/JSON locally in the browser; it does not upload or persist a report. Scanned PDF/OCR is not supported.
 - No authentication, persistence, MFA, database, or public deployment security. Keep the service loopback-only.
 - No test establishes clinical validity or patient safety.
-
-Further scope and planned scientific validation are in [docs/VALIDATION_PLAN.md](docs/VALIDATION_PLAN.md) and [docs/SECURITY_REVIEW.md](docs/SECURITY_REVIEW.md).
