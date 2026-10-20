@@ -1,0 +1,71 @@
+.report-import{margin:0 0 20px;padding:14px;border:1px solid #dfe7df;border-radius:5px;background:#f8faf7}
+.report-import-head{display:flex;justify-content:space-between;align-items:center;gap:12px}
+.report-import-head h3{margin:0;font:600 14px var(--display)}
+.report-import-head .eyebrow{margin-bottom:5px;font-size:8px}
+.report-import .section-intro{margin:8px 0 11px;font-size:10px}
+.file-picker{display:flex;align-items:center;justify-content:center;min-height:38px;padding:8px 11px;border:1px dashed #aebfb2;border-radius:4px;color:#3f6655;background:#fff;font-size:11px;font-weight:600;cursor:pointer}
+.file-picker:hover{border-color:#628c72;background:#f5f9f4}
+.file-picker input{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;clip-path:inset(50%)}
+.file-picker:focus-within{outline:3px solid #c8dfce}
+.report-import-status{margin-top:8px;color:#76877e;font-size:9px;line-height:1.45}
+.report-import-review{display:grid;gap:6px;margin-top:10px;padding-top:9px;border-top:1px solid #e3e9e2}
+.report-import-review>strong{color:#516b5d;font-size:10px}
+.report-review-row{display:grid;grid-template-columns:minmax(80px,.7fr) auto minmax(0,1.4fr);gap:8px;align-items:center;padding:6px 7px;background:#fff;border-radius:3px;color:#52645b;font-size:9px}
+.report-review-row b{font:10px var(--mono);color:#355c4c}
+.report-review-row small{overflow-wrap:anywhere;color:#87948c;font-size:8px}
+.report-review-row.skipped{grid-template-columns:auto minmax(0,1fr);background:#fbf4e8}
+.report-review-row.skipped span{color:#8b6938}
+@media(max-width:430px){.report-import{padding:11px}.report-review-row{grid-template-columns:1fr auto}.report-review-row small{grid-column:1/-1;grid-row:2}.report-import-head .local-tag{font-size:7px}}
+.liver-stage{height:290px;background:radial-gradient(ellipse at 50% 55%,#15375a 0%,#0a1e36 63%,#071426 100%);box-shadow:inset 0 0 42px #020c1a80}
+.liver-stage:after{content:"";position:absolute;inset:0;pointer-events:none;background-image:linear-gradient(#42a6df12 1px,transparent 1px),linear-gradient(90deg,#42a6df12 1px,transparent 1px);background-size:34px 34px;mask-image:radial-gradient(ellipse at center,#000 5%,transparent 82%)}
+.liver-stage #liver-canvas{position:relative;z-index:1}
+.liver-badge,.drag-hint{z-index:3;color:#bed9f0}
+.liver-badge{padding:6px 8px;border:1px solid #73b6e347;border-radius:3px;background:#07142690;letter-spacing:.08em}
+.live-dot{background:#79dbff;box-shadow:0 0 0 3px #79dbff30,0 0 12px #79dbff}
+.drag-hint{padding:5px 7px;border-radius:3px;background:#07142690}
+.liver-hotspot{position:absolute;z-index:2;left:50%;top:50%;display:grid;place-items:center;width:25px;height:25px;transform:translate(-50%,-50%);border:1px solid #ffffffd9;border-radius:50%;background:#102c49b8;color:#fff;font:11px var(--mono);text-shadow:0 1px 5px #00152a;box-shadow:0 0 0 4px #57c8ff2e,0 0 18px #57c8ffb3;pointer-events:none}
+.liver-hotspot[hidden]{display:none}
+.hotspot-tg{box-shadow:0 0 0 4px #ffb94d44,0 0 18px #ffad35d9}.hotspot-ros{box-shadow:0 0 0 4px #ff665044,0 0 18px #ff5e4bd9}.hotspot-ecm{box-shadow:0 0 0 4px #57d5ff44,0 0 18px #57d5ffd9}
+.liver-analysis-strip{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin:12px 0 1px}
+.liver-analysis-strip>span{display:grid;grid-template-columns:9px auto 1fr;gap:6px;align-items:center;min-width:0;padding:7px 8px;border-left:1px solid #dce7e7;background:#f6f8f7;color:#61736f;font:9px var(--mono)}
+.liver-analysis-strip i{width:7px;height:7px;border-radius:50%}
+.liver-analysis-strip b{font-weight:500;color:#4e665e}
+.liver-analysis-strip strong{justify-self:end;color:#173a36;font:10px var(--mono);font-variant-numeric:tabular-nums}
+@media(max-width:430px){.liver-stage{height:255px}.liver-analysis-strip{gap:4px}.liver-analysis-strip>span{grid-template-columns:7px auto;gap:4px;padding:7px 5px;font-size:8px}.liver-analysis-strip strong{grid-column:2;justify-self:start;font-size:9px}}
+
+/* Anatomical twin controls and overlays */
+.twin-toolbar{display:flex;align-items:end;justify-content:space-between;gap:8px;flex-wrap:wrap;margin:10px 0 7px}.view-modes{display:flex;gap:3px;padding:3px;border:1px solid #dce5dc;border-radius:5px;background:#edf2ed}.view-mode,.twin-toolbar label{color:#718078;font:8px var(--mono);letter-spacing:.055em}.view-mode{min-height:28px;padding:5px 9px;border:1px solid transparent;border-radius:3px;background:transparent;color:#536d63;cursor:pointer}.view-mode:hover{background:#e3ebe3;color:#315c4d}.view-mode.active{border-color:#285d4c;background:#285d4c;color:#fff}.view-mode:focus-visible,.twin-toolbar select:focus-visible,.twin-playback button:focus-visible{outline:2px solid #6b9d78;outline-offset:2px}.twin-toolbar label{display:grid;gap:4px}.twin-toolbar select{min-width:112px;height:29px;padding:4px 20px 4px 7px;border:1px solid #dce5dc;border-radius:3px;background:#fbfcfa;color:#2b3b35;font:8px var(--mono)}.twin-toolbar select:focus{border-color:#73967e}.twin-toolbar select:disabled{opacity:.58;background:#f0f3ef;color:#77837c}.liver-stage{height:clamp(430px,58vh,690px);min-height:430px;margin-top:0;border-color:#1a567a;background:radial-gradient(ellipse at 50% 45%,#0a2b47 0%,#06172a 62%,#041120 100%);box-shadow:inset 0 0 54px #020c1a99}.liver-stage:after{z-index:0}.liver-stage #liver-canvas{position:absolute;inset:0;z-index:1;width:100%;height:100%;touch-action:none;cursor:grab}.liver-stage #liver-canvas:active{cursor:grabbing}.liver-badge{z-index:3;color:#a8dcf4}.liver-badge .live-dot{background:#62deff;box-shadow:0 0 0 3px #4fcfff2a,0 0 12px #4fcfff}.liver-stage-hud{position:absolute;z-index:3;top:12px;right:13px;display:grid;justify-items:end;gap:5px;color:#8fcbea;font:8px var(--mono);letter-spacing:.06em}.liver-stage-hud #renderer-badge{padding:5px 7px;border:1px solid #2e6380;border-radius:3px;background:#06172ad9}.drag-hint{z-index:3;color:#9bc4dd}.zone-marker{position:absolute;z-index:4;display:grid;place-items:center;width:27px;height:27px;transform:translate(-50%,-50%);border:1px solid #d8f8ff;border-radius:50%;background:#03182bc9;color:#fff;font:10px var(--mono);box-shadow:0 0 0 4px #4ddaff38,0 0 18px #4ddaffb0;cursor:pointer}.zone-marker[hidden]{display:none}.zone-marker:focus-visible{outline:2px solid #fff;outline-offset:3px}.twin-playback{display:grid;grid-template-columns:auto auto minmax(90px,1fr) auto minmax(75px,.55fr);gap:9px;align-items:center;margin:9px 0 0;padding:9px;border:1px solid #dce8e8;border-radius:4px;background:#f5f8f6;color:#516b66;font:8px var(--mono)}.twin-playback button{min-width:76px;padding:7px 9px;border:1px solid #285d4c;border-radius:3px;background:#285d4c;color:#fff;font:9px var(--mono);cursor:pointer}.twin-playback button:hover:not(:disabled){background:#1c493b;border-color:#1c493b}.twin-playback button:disabled{opacity:.5;cursor:wait}.twin-playback label{white-space:nowrap}.twin-playback input{width:100%;accent-color:#4d8060}.liver-analysis-strip>span{grid-template-columns:8px auto auto;row-gap:4px;background:#f4f8f6}.liver-analysis-strip small{grid-column:2/4;color:#71847d;font:8px var(--mono);font-variant-numeric:tabular-nums;overflow-wrap:anywhere}.liver-disclaimer{padding:8px 9px;border-left:2px solid #26a6c1;background:#eff5f5;color:#4b656b}.liver-model-message{color:#537479}
+.liver-selected-zone{margin:10px 0 5px;color:#718078;font:8px var(--mono);letter-spacing:.07em}
+@media(max-width:720px){.liver-stage{height:clamp(390px,64vh,570px);min-height:390px}.twin-toolbar{align-items:stretch}.twin-toolbar label{flex:1}.twin-toolbar select{width:100%}.twin-playback{grid-template-columns:auto auto 1fr;gap:7px}.twin-playback label[for=liver-zoom]{grid-column:1}.twin-playback input:last-child{grid-column:2/4}.liver-analysis-strip>span{grid-template-columns:7px auto 1fr}.liver-analysis-strip small{grid-column:2/4;font-size:7px}}
+@media(max-width:430px){.liver-stage{height:420px;min-height:420px}.view-mode{padding-inline:6px;font-size:7px}.twin-playback{grid-template-columns:auto 1fr 1fr}.twin-playback label[for=liver-time]{grid-column:2/4}.twin-playback input#liver-time{grid-column:1/4}.twin-playback label[for=liver-zoom]{grid-column:1}.twin-playback input:last-child{grid-column:2/4}.liver-analysis-strip>span{grid-template-columns:7px auto 1fr;padding:7px 5px}.liver-analysis-strip strong{grid-column:auto;justify-self:end}.liver-analysis-strip small{grid-column:1/4}}
+@media(max-width:430px){.liver-stage-hud{top:37px;left:11px;right:11px;justify-items:start}.liver-stage-hud #liver-time-label{max-width:calc(100% - 4px);text-align:left;white-space:normal;line-height:1.35}.liver-stage-hud #renderer-badge{position:absolute;top:-26px;right:0}}
+
+/* Compact analysis dashboard, using the same sage/white palette as the rest of the page. */
+.analysis-dashboard{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:10px;margin:0 0 12px}
+.analysis-dashboard[hidden]{display:none}
+.analysis-card{min-width:0;padding:15px 15px 13px;border:1px solid var(--line);border-radius:6px;background:#fff;color:var(--ink);box-shadow:0 4px 14px #263d2c08}
+.analysis-heading{display:flex;justify-content:space-between;align-items:center;gap:9px;padding-bottom:9px;border-bottom:1px solid #e5ebe3}
+.analysis-eyebrow{margin:0 0 4px;color:#638278;font:8px var(--mono);letter-spacing:.1em}
+.analysis-heading h3{margin:0;color:var(--ink);font:600 13px var(--display)}
+.analysis-unit{color:#829087;font:7px var(--mono);letter-spacing:.07em;white-space:nowrap}
+.analysis-chart{height:154px;margin-top:10px}.analysis-chart canvas{display:block;width:100%;height:100%}
+.analysis-legend{display:flex;justify-content:center;gap:17px;margin-top:7px;color:#718078;font:8px var(--mono)}
+.analysis-legend span{display:flex;align-items:center;gap:6px}.analysis-legend i{width:13px;height:2px}.legend-base{background:#9aada2}.legend-scenario{background:#205c50}
+.analysis-biomarkers{display:grid;gap:8px;margin-top:11px}
+.analysis-biomarker{padding:9px 10px;border:1px solid #e3e9e1;border-left:3px solid var(--signal);border-radius:4px;background:#f8faf7}
+.analysis-biomarker-head{display:flex;justify-content:space-between;align-items:center;gap:7px;color:#52645b;font-size:9px}
+.analysis-biomarker-head b{color:var(--signal);font:600 13px var(--mono);font-variant-numeric:tabular-nums}
+.analysis-biomarker small{display:block;margin-top:5px;color:#78877f;font:7px var(--mono);font-variant-numeric:tabular-nums}
+.analysis-track{height:5px;margin-top:7px;overflow:hidden;border-radius:5px;background:#e3e9e1}.analysis-track span{display:block;height:100%;border-radius:5px;background:var(--signal)}
+.analysis-note{margin:10px 0 0;color:#78877f;font-size:8px;line-height:1.5}
+.analysis-select{display:grid;gap:3px;color:#829087;font:7px var(--mono);letter-spacing:.08em}.analysis-select select{width:105px;height:26px;margin:0;padding:3px 17px 3px 6px;border:1px solid #dfe7df;border-radius:4px;background:#fbfcfa;color:#416452;font:8px var(--mono)}
+.analysis-zones{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:8px;height:132px;margin:11px 2px 0;padding:0 7px;border-bottom:1px solid #b9c9bd;background:repeating-linear-gradient(to bottom,transparent 0,transparent 31px,#edf1eb 32px)}
+.zone-bar-group{display:grid;grid-template-rows:1fr 18px;justify-items:center;min-width:0}.zone-bar-group>span{align-self:end;padding-bottom:4px;color:#61736a;font:8px var(--mono)}.zone-bars{display:flex;align-items:end;justify-content:center;gap:4px;width:100%;height:100%}.zone-bars i{width:30%;min-width:5px;border-radius:2px 2px 0 0;opacity:.92}
+.analysis-insights{display:grid;gap:9px;margin:12px 0 0;padding:0;list-style:none}.analysis-insights li{position:relative;padding-left:14px;color:#52645b;font-size:9px;line-height:1.5}.analysis-insights li:before{position:absolute;left:0;top:0;color:#628c72;content:"•"}.analysis-pulse{display:grid;place-items:center;width:25px;height:25px;border:1px solid #c8d8ca;border-radius:50%;color:#4a7d65;font:16px var(--mono)}
+@media(max-width:720px){.analysis-dashboard{grid-template-columns:1fr}.analysis-card{padding:14px}.analysis-chart{height:170px}}
+@media(max-width:1000px){.workspace{grid-template-columns:minmax(0,1fr);gap:14px}.results{grid-row:1}.input-panel{grid-row:2}}
+.analysis-dashboard{align-items:stretch;grid-auto-rows:minmax(230px,auto)}
+.analysis-card{height:100%;display:flex;flex-direction:column}
+.analysis-chart{flex:1;min-height:130px}
+.analysis-biomarkers,.analysis-insights{flex:1;align-content:start}
+.camera-reset{min-height:29px;padding:5px 9px;border:1px solid #bfd0c8;border-radius:3px;background:#edf3ef;color:#47675a;font:8px var(--mono);cursor:pointer}.camera-reset:hover:not(:disabled){border-color:#70947c;background:#e2ece5}.camera-reset:disabled{opacity:.48;cursor:not-allowed}.camera-reset:focus-visible{outline:2px solid #6b9d78;outline-offset:2px}.liver-static-fallback{z-index:2;background:radial-gradient(ellipse at center,#123652,#06172a 72%);color:#afd4df}

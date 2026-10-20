@@ -1,0 +1,116 @@
+{
+  "schema_version": 1,
+  "model_scope": "Synthetic dimensionless teaching model. Numeric parameters are software assumptions, not patient estimates.",
+  "parameters": [
+    {
+      "name": "uptake_rate",
+      "definition": "Baseline fatty-acid-like input term in the synthetic FFA derivative.",
+      "unit": "arbitrary_state_units / arbitrary_time_unit",
+      "default": 0.045,
+      "range": { "lower": 0.036, "upper": 0.054 },
+      "evidence_type": "assumed",
+      "source": "No source supports the numeric value. Qualitative motivation only: https://pubmed.ncbi.nlm.nih.gov/39583092/",
+      "validity": "Toy equation only; not measured in any population.",
+      "sensitivity": "One-at-a-time ±20% probes are reported in the API and synthetic experiment report."
+    },
+    {
+      "name": "dnl_rate",
+      "definition": "Baseline de-novo-lipogenesis-like input term in the synthetic FFA derivative.",
+      "unit": "arbitrary_state_units / arbitrary_time_unit",
+      "default": 0.035,
+      "range": { "lower": 0.028, "upper": 0.042 },
+      "evidence_type": "assumed",
+      "source": "No source supports the numeric value. Qualitative motivation only: https://pubmed.ncbi.nlm.nih.gov/25740151/",
+      "validity": "Toy equation only; not measured in any population.",
+      "sensitivity": "One-at-a-time ±20% probes are reported in the API and synthetic experiment report."
+    },
+    {
+      "name": "beta_oxidation_rate",
+      "definition": "Synthetic FFA oxidation term, multiplied by relative oxygen and a saturating FFA factor.",
+      "unit": "arbitrary_state_units / arbitrary_time_unit",
+      "default": 0.055,
+      "range": { "lower": 0.044, "upper": 0.066 },
+      "evidence_type": "assumed",
+      "source": "No source supports the numeric value, oxygen multiplier, or saturation constant. Qualitative motivation: https://pubmed.ncbi.nlm.nih.gov/39583092/",
+      "validity": "Toy equation only; not calibrated to liver measurements.",
+      "sensitivity": "One-at-a-time ±20% probes are reported in the API and synthetic experiment report."
+    },
+    {
+      "name": "initial_ffa",
+      "definition": "Initial free-fatty-acid-like state for each synthetic zone.",
+      "unit": "dimensionless arbitrary model units",
+      "default": 0.4,
+      "range": { "lower": 0.38, "upper": 0.42 },
+      "evidence_type": "assumed",
+      "source": "Arbitrary visualization initial condition; no empirical source.",
+      "validity": "Synthetic demonstration only.",
+      "sensitivity": "Initial-condition scale sweep at 0.5×, 1.0× and 1.5× is reported."
+    },
+    {
+      "name": "initial_triglyceride",
+      "definition": "Initial triglyceride-like state for each synthetic zone.",
+      "unit": "dimensionless arbitrary model units",
+      "default": 0.2,
+      "range": { "lower": 0.19, "upper": 0.21 },
+      "evidence_type": "assumed",
+      "source": "Arbitrary visualization initial condition; no empirical source.",
+      "validity": "Synthetic demonstration only.",
+      "sensitivity": "Initial-condition scale sweep at 0.5×, 1.0× and 1.5× is reported."
+    },
+    {
+      "name": "initial_ros",
+      "definition": "Initial reactive-oxygen-species-like state for each synthetic zone.",
+      "unit": "dimensionless arbitrary model units",
+      "default": 0.1,
+      "range": { "lower": 0.095, "upper": 0.105 },
+      "evidence_type": "assumed",
+      "source": "Arbitrary visualization initial condition; no empirical source.",
+      "validity": "Synthetic demonstration only; not a ROS assay.",
+      "sensitivity": "Initial-condition scale sweep at 0.5×, 1.0× and 1.5× is reported."
+    },
+    {
+      "name": "initial_ecm",
+      "definition": "Initial extracellular-matrix-like state for each synthetic zone.",
+      "unit": "dimensionless arbitrary model units",
+      "default": 0.05,
+      "range": { "lower": 0.0475, "upper": 0.0525 },
+      "evidence_type": "assumed",
+      "source": "Arbitrary visualization initial condition; no empirical source.",
+      "validity": "Synthetic demonstration only; not a fibrosis measurement.",
+      "sensitivity": "Initial-condition scale sweep at 0.5×, 1.0× and 1.5× is reported."
+    },
+    {
+      "name": "ode_loss_and_transfer_coefficients",
+      "definition": "Fixed coefficients in dFFA, dTG, dROS and dECM synthetic equations.",
+      "unit": "inverse arbitrary_time_unit",
+      "default": { "ffa_loss": 0.06, "tg_loss": 0.05, "ros_production": 0.09, "ros_loss": 0.035, "hsc_to_ecm": 0.025, "mmp_to_ecm": 0.008 },
+      "range": "Not empirically estimated; no validated range assigned.",
+      "evidence_type": "assumed",
+      "source": "Equation form and coefficients are synthetic. Qualitative mechanism context is described in docs/PARAMETERS.md.",
+      "validity": "Equation-recovery benchmark only, not a biological mechanism simulator.",
+      "sensitivity": "Not individually varied in current sensitivity analysis."
+    },
+    {
+      "name": "oxygen_gradient",
+      "definition": "Relative zonal oxygen multiplier from zone 1 to zone 5.",
+      "unit": "dimensionless relative scale",
+      "default": { "zone_1": 1.0, "zone_5": 0.38 },
+      "range": "Fixed illustrative gradient; not a measured physiological range.",
+      "evidence_type": "assumed",
+      "source": "Broad qualitative motivation: https://pubmed.ncbi.nlm.nih.gov/31537830/ . The selected values are invented.",
+      "validity": "Five-zone teaching visualization only.",
+      "sensitivity": "Not individually varied in current sensitivity analysis."
+    },
+    {
+      "name": "oxygen_pde_coefficients",
+      "definition": "One-dimensional explicit teaching PDE velocity, diffusivity, uptake and fixed boundaries.",
+      "unit": "arbitrary transport units; displayed boundaries use mmHg labels for visual context only",
+      "default": { "velocity": 0.15, "diffusivity": 0.08, "uptake": 0.12, "boundary_left": 65, "boundary_right": 25 },
+      "range": "Not empirically estimated; solver bounds the explicit time step for numerical stability.",
+      "evidence_type": "assumed",
+      "source": "No source supports these numeric values or geometry.",
+      "validity": "Teaching PDE only; not physiologically calibrated.",
+      "sensitivity": "Grid refinement at 21, 41 and 81 cells is reported."
+    }
+  ]
+}

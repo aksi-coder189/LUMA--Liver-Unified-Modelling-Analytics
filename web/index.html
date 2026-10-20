@@ -1,0 +1,147 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="light">
+  <title>LUMA Liver Unified Modelling &amp; Analytics</title>
+  <link rel="stylesheet" href="assets/css/app.css?v=5">
+  <link rel="stylesheet" href="assets/css/report-import.css?v=6">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="#top" aria-label="LUMA Liver Unified Modelling &amp; Analytics home"><span class="brand-mark">L</span><span>LUMA<br><b>Liver Unified Modelling &amp; Analytics</b></span></a>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="hero-copy">
+        <h1>Explore the<br><em>system.</em></h1>
+        <p class="lede">A transparent, synthetic model of selected MASLD mechanisms. Adjust illustrative inputs and see how assumptions move through the equations.</p>
+        <div class="hero-note"><span class="note-icon">i</span><span>This is not a diagnostic or treatment tool. Model coefficients are illustrative and have not been validated in people.</span></div>
+      </div>
+      <div class="hero-graphic" aria-hidden="true">
+        <div class="orbit orbit-a"></div><div class="orbit orbit-b"></div><div class="orbit orbit-c"></div>
+        <div class="core"><span>METABOLIC<br>FLUX</span></div>
+        <span class="node node-one">FFA</span><span class="node node-two">ROS</span><span class="node node-three">ECM</span><span class="node node-four">O₂</span>
+        <span class="graphic-caption">A simplified liver zonation model</span>
+      </div>
+    </section>
+
+    <section class="disclaimer" role="note">
+      <strong>NOT FOR CLINICAL USE</strong>
+      <span>No stage diagnosis, personal risk prediction, medication guidance, or clinical efficacy estimate is produced. Do not enter real patient or identifying data.</span>
+    </section>
+
+    <div class="workspace">
+      <section class="panel input-panel" aria-labelledby="inputs-title">
+        <div class="panel-head"><div><p class="eyebrow">01 / MODEL INPUT</p><h2 id="inputs-title">Set the scenario</h2></div><div class="panel-actions"><button id="load-example" class="text-button" type="button">Load example ↗</button><button id="run-model-top" class="run-button run-button-compact" type="submit" form="model-form"><span>Run model</span><span aria-hidden="true">→</span></button></div></div>
+        <p class="section-intro">All fields are optional. Units and broad input bounds are shown for data-shape checks only.</p>
+        <form id="model-form">
+          <section class="report-import" aria-labelledby="report-import-title">
+            <div class="report-import-head"><div><p class="eyebrow">OPTIONAL / REPORT IMPORT</p><h3 id="report-import-title">Fill fields from a report</h3></div><span class="local-tag"><i></i> IN BROWSER</span></div>
+            <p class="section-intro">Choose a text-based report (.txt, .csv, or .json). Recognized lab values fill matching fields; check the report snippets and units before running the model. Scanned PDFs need OCR and are not supported here.</p>
+            <label class="file-picker">Select report file<input id="report-file" type="file" accept=".txt,.csv,.json,text/plain,text/csv,application/json"></label>
+            <div id="report-import-status" class="report-import-status" role="status" aria-live="polite">The file is read in this browser and is not uploaded or saved.</div>
+            <div id="report-import-review" class="report-import-review" hidden></div>
+          </section>
+          <div class="field-grid">
+            <label>Age <span>years</span><input name="age_years" type="number" min="18" max="120" step="1" placeholder="45"></label>
+            <label>Height <span>m</span><input name="height_m" type="number" min="1" max="2.5" step="0.01" placeholder="1.68"></label>
+            <label>Weight <span>kg</span><input name="weight_kg" type="number" min="20" max="400" step="0.1" placeholder="72"></label>
+            <label>ALT <span>U/L</span><input name="alt_u_l" type="number" min="0" max="10000" step="any" placeholder="42"></label>
+            <label>AST <span>U/L</span><input name="ast_u_l" type="number" min="0" max="10000" step="any" placeholder="35"></label>
+            <label>Platelets <span>10⁹/L</span><input name="platelets_10e9_l" type="number" min="1" max="2000" step="any" placeholder="220"></label>
+            <label>CAP <span>dB/m</span><input name="cap_db_m" type="number" min="100" max="1000" step="any" placeholder="285"></label>
+            <label>Liver stiffness <span>kPa</span><input name="lsm_kpa" type="number" min="0" max="200" step="any" placeholder="6.8"></label>
+            <label>BIA phase angle <span>degrees</span><input name="bia_phase_angle_deg" type="number" min="0" max="20" step="any" placeholder="5.4"></label>
+            <label>hsCRP <span>mg/L</span><input name="hscrp_mg_l" type="number" min="0" max="1000" step="any" placeholder="—"></label>
+            <label>Ferritin <span>µg/L</span><input name="ferritin_ug_l" type="number" min="0" max="100000" step="any" placeholder="—"></label>
+            <label>Fasting glucose <span>mmol/L</span><input name="fasting_glucose_mmol_l" type="number" min="0" max="100" step="any" placeholder="—"></label>
+          </div>
+          <div class="divider"></div>
+          <div class="subhead"><div><p class="eyebrow">02 / SCENARIO SWITCHES</p><h3>Illustrative modifiers</h3></div><span class="assumption-chip">ASSUMPTIONS ONLY</span></div>
+          <p class="section-intro">Switches alter arbitrary model coefficients. They do not represent measured biology, therapy, or lifestyle effects.</p>
+          <div class="switch-list">
+            <label class="switch-row"><span><b>Reduce substrate uptake</b><small>Set uptake coefficient to 90% of baseline</small></span><input type="checkbox" name="reduce_uptake"><i></i></label>
+            <label class="switch-row"><span><b>Reduce DNL</b><small>Set de novo lipogenesis coefficient to 90%</small></span><input type="checkbox" name="reduce_dnl"><i></i></label>
+            <label class="switch-row"><span><b>Increase oxidation</b><small>Set β-oxidation coefficient to 110%</small></span><input type="checkbox" name="increase_oxidation"><i></i></label>
+            <label class="switch-row"><span><b>Increase matrix turnover</b><small>Set matrix degradation factor to 110%</small></span><input type="checkbox" name="increase_matrix_turnover"><i></i></label>
+          </div>
+          <details class="genetics">
+            <summary>Optional synthetic genotype scenario <span>+</span></summary>
+            <div class="genetics-body">
+              <p>Genotypes are sensitive data. This demo processes selections only in this page's memory; it does not save or transmit them. This toggle is not a consent-management workflow.</p>
+              <label class="consent"><input id="genomic-consent" type="checkbox"> I understand this is a synthetic, unvalidated scenario and choose to include these values for this session.</label>
+              <div class="field-grid genotype-fields" id="genotype-fields" hidden>
+                <label>PNPLA3 rs738409<select name="pnpla3_genotype"><option value="">Omit</option><option>CC</option><option>CG</option><option>GG</option></select></label>
+                <label>TM6SF2 rs58542926<select name="tm6sf2_genotype"><option value="">Omit</option><option>CC</option><option>CT</option><option>TT</option></select></label>
+              </div>
+              <p class="microcopy">Allele weights in this prototype are arbitrary and must not be interpreted as genetic risk.</p>
+            </div>
+          </details>
+          <div id="form-error" class="form-error" role="alert" hidden></div>
+          <button class="run-button" type="submit"><span>Run synthetic model</span><span aria-hidden="true">→</span></button>
+          <p class="privacy-note"><span class="lock">⌑</span> Sent only to this machine's local server. No external network or browser storage.</p>
+        </form>
+      </section>
+
+      <section class="results" aria-live="polite" aria-labelledby="results-title">
+        <div class="results-heading"><div><p class="eyebrow">MODEL OUTPUT</p><h2 id="results-title">Scenario overview</h2></div><div class="demo-actions"><button id="load-two-stream-demo" class="text-button" type="button">Run complete synthetic story ↗</button><span id="run-status" class="status-pill">WAITING FOR INPUT</span></div></div>
+        <article id="two-stream-dashboard" class="result-card two-stream-dashboard" hidden aria-labelledby="two-stream-title">
+          <div class="card-title"><div><p class="eyebrow">REPRODUCIBLE TWO-STREAM CASE</p><h3 id="two-stream-title">Synthetic record → sensor stream → updated twin</h3></div><span class="tag-amber">SYNTHETIC ONLY</span></div>
+          <p id="two-stream-notice" class="card-copy"></p>
+          <div class="two-stream-grid"><section><h4>Demographic record</h4><div id="demo-demographics" class="demo-facts"></div><h4>Historical lab record</h4><div id="demo-labs" class="demo-table-wrap"></div></section><section><h4>New sensor observations · 7 days</h4><div id="demo-sensors" class="demo-table-wrap"></div><p id="demo-sensor-mapping" class="analysis-note"></p></section></div>
+          <div class="two-stream-grid"><section><h4>Twin update · lab-only vs lab + sensors</h4><div id="demo-state-comparison" class="demo-facts"></div><p id="demo-mapping-note" class="analysis-note"></p><div class="demo-chart-wrap"><canvas id="demo-twin-chart" aria-label="Synthetic triglyceride proxy time series comparing lab-only and lab-plus-sensor twin states"></canvas></div><div class="demo-chart-legend"><span><i class="demo-legend-lab"></i>Lab only</span><span><i class="demo-legend-fused"></i>Lab + sensor</span></div></section><section><h4>30-day forecast target</h4><div id="demo-forecast" class="demo-facts"></div><p id="demo-evaluation" class="analysis-note"></p></section></div>
+          <div class="demo-clinician"><b>Dashboard review context</b><span id="demo-clinician-note"></span><span id="demo-explanation-note"></span></div>
+        </article>
+        <article class="result-card liver-view-card" aria-labelledby="liver-view-title">
+          <div class="card-title liver-view-head"><div><p class="eyebrow">3D / SYNTHETIC TISSUE VIEW</p><h3 id="liver-view-title">Anatomical simulation twin</h3></div><label class="scenario-picker">SCENARIO<select id="liver-scenario" disabled aria-label="Choose a generic parameter perturbation"><option value="selected">Selected assumptions</option><option value="baseline">Baseline</option><option value="reduce_uptake">Reduced uptake assumption</option><option value="reduce_dnl">Reduced DNL assumption</option><option value="increase_oxidation">Increased oxidation assumption</option><option value="increase_matrix_turnover">Increased matrix turnover assumption</option></select></label></div>
+          <div class="twin-toolbar" aria-label="3D simulation controls"><div class="view-modes" role="group" aria-label="Anatomy view"><button type="button" class="view-mode active" data-view-mode="body" aria-pressed="true">Full body</button><button type="button" class="view-mode" data-view-mode="liver" aria-pressed="false">Liver focus</button><button type="button" class="view-mode" data-view-mode="zones" aria-pressed="false">Zones</button></div><label>ZONE<select id="liver-zone" disabled><option value="all">Whole liver</option><option value="0">Zone 1 · periportal</option><option value="1">Zone 2</option><option value="2">Zone 3</option><option value="3">Zone 4</option><option value="4">Zone 5 · perivenous</option></select></label><label>COMPARE<select id="liver-comparison" disabled><option value="scenario">Scenario</option><option value="baseline">Baseline</option><option value="difference">Difference</option></select></label><button type="button" id="liver-reset-camera" class="camera-reset" disabled>Reset camera</button></div>
+          <div class="liver-stage"><canvas id="liver-canvas" aria-label="Interactive 3D transparent human body with a clickable licensed liver model. Drag to rotate, scroll to zoom, or select liver zones."></canvas><div id="liver-static-fallback" class="liver-static-fallback" role="img" aria-label="Static anatomical liver illustration. 3D model unavailable." hidden><svg viewBox="0 0 320 190" aria-hidden="true"><defs><linearGradient id="luma-liver-fill" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#c96d50"/><stop offset=".55" stop-color="#8f463b"/><stop offset="1" stop-color="#59363b"/></linearGradient></defs><path d="M49 89c8-37 49-57 101-53 28 2 50 16 69 14 20-2 38 9 42 26 5 22-19 48-48 62-24 11-53 9-77 17-26 9-58 14-78-1-16-11-17-39-9-65Z" fill="url(#luma-liver-fill)" stroke="#e6a38a" stroke-width="3"/><path d="M160 39c-5 21-8 45-7 72 1 18 3 32 9 45" fill="none" stroke="#e9a891" stroke-width="4" opacity=".75"/><path d="M50 100c39 8 67 8 104-2 45-12 71-12 103-4" fill="none" stroke="#f3b099" stroke-width="1.5" opacity=".45"/></svg><span>Static anatomy illustration · 3D renderer unavailable</span></div><div class="liver-badge"><span class="live-dot"></span><span id="liver-scenario-name">LOADING LICENSED MODELS</span></div><div class="liver-stage-hud"><span id="liver-time-label">SIMULATION NOT RUN</span><span id="renderer-badge">3D · WEBGL</span></div><span class="drag-hint">DRAG · SCROLL TO ZOOM · CLICK LIVER</span><button class="zone-marker" type="button" data-zone-marker="0" aria-label="Select liver zone 1" hidden>1</button><button class="zone-marker" type="button" data-zone-marker="1" aria-label="Select liver zone 2" hidden>2</button><button class="zone-marker" type="button" data-zone-marker="2" aria-label="Select liver zone 3" hidden>3</button><button class="zone-marker" type="button" data-zone-marker="3" aria-label="Select liver zone 4" hidden>4</button><button class="zone-marker" type="button" data-zone-marker="4" aria-label="Select liver zone 5" hidden>5</button></div>
+          <div class="twin-playback"><button id="liver-play" type="button" disabled aria-pressed="false">▶ Play</button><label for="liver-time">TIME STEP <span id="liver-time-value">0 / 0</span></label><input id="liver-time" type="range" min="0" max="0" value="0" step="1" disabled><label for="liver-zoom">ZOOM</label><input id="liver-zoom" type="range" min="0.8" max="2.8" value="1" step="0.05" aria-label="3D model zoom"></div>
+          <p id="liver-selected-zone" class="liver-selected-zone">WHOLE-LIVER MEAN · SYNTHETIC PROXIES</p>
+          <div class="liver-analysis-strip" aria-label="Baseline and scenario synthetic states at the selected time step"><span><i class="legend-lipid"></i><b>1 · TG</b><strong id="liver-tg-value">—</strong><small id="liver-tg-compare">B — → S —</small></span><span><i class="legend-inflammation"></i><b>2 · ROS</b><strong id="liver-ros-value">—</strong><small id="liver-ros-compare">B — → S —</small></span><span><i class="legend-fibrosis"></i><b>3 · ECM</b><strong id="liver-ecm-value">—</strong><small id="liver-ecm-compare">B — → S —</small></span></div>
+          <div class="liver-legend"><span><i class="legend-lipid"></i>TG</span><span><i class="legend-inflammation"></i>ROS</span><span><i class="legend-fibrosis"></i>ECM</span><span class="renderer-badge">RELATIVE SYNTHETIC RUN RANGE</span></div>
+          <p class="liver-disclaimer">CC0 reference anatomy; the liver shape stays fixed. Surface hue blends the selected run-normalized TG (gold), ROS (coral), and ECM (blue-gray) proxies; its glow follows the strongest signal. In Zones view, marker hue identifies the zone while marker size and opacity show that zone’s strongest run-normalized signal. Select a zone to update its values and trajectory. Normalization uses the displayed run’s baseline/scenario histories; these synthetic arbitrary-unit visuals do not represent clinical severity or tissue deformation.</p>
+          <p id="liver-model-message" class="liver-model-message" role="status" aria-live="polite">Synthetic simulation outputs appear after you run the model.</p>
+        </article>
+        <section id="analysis-dashboard" class="analysis-dashboard" aria-label="Synthetic simulation analysis" hidden>
+          <article class="analysis-card trend-card"><div class="analysis-heading"><div><p class="analysis-eyebrow">SYNTHETIC STATE OVER TIME</p><h3 id="analysis-trend-title">Whole-liver mean trajectory</h3></div><label class="analysis-select">METRIC<select id="analysis-trend-metric" aria-label="Choose metric for the time trend"><option value="triglyceride">TG proxy</option><option value="ros">ROS proxy</option><option value="ecm">ECM proxy</option></select></label></div><div class="analysis-chart"><canvas id="analysis-trend" aria-label="Synthetic proxy over model time, baseline and selected scenario"></canvas></div><div class="analysis-legend"><span><i class="legend-base"></i>Baseline</span><span><i class="legend-scenario"></i>Scenario</span></div></article>
+          <article class="analysis-card"><div class="analysis-heading"><div><p class="analysis-eyebrow">BIOMARKER INDICATORS</p><h3>Current synthetic state</h3></div><span class="analysis-unit">RUN-RELATIVE</span></div><div id="analysis-biomarkers" class="analysis-biomarkers"></div><p class="analysis-note">Bars are normalized within this run’s baseline/scenario history. They are arbitrary model proxies, not clinical measurements.</p></article>
+          <article class="analysis-card"><div class="analysis-heading"><div><p class="analysis-eyebrow">ZONE COMPARISON</p><h3>Five-zone model output</h3></div><label class="analysis-select">METRIC<select id="analysis-zone-metric" aria-label="Choose metric for zone comparison"><option value="triglyceride">TG proxy</option><option value="ros">ROS proxy</option><option value="ecm">ECM proxy</option></select></label></div><div id="analysis-zones" class="analysis-zones" aria-label="Zone comparison chart"></div><div class="analysis-legend"><span><i class="legend-base"></i>Baseline</span><span><i class="legend-scenario"></i>Scenario</span></div><p class="analysis-note">Bars share a run-relative scale for the selected time step.</p></article>
+          <article class="analysis-card"><div class="analysis-heading"><div><p class="analysis-eyebrow">SIMULATION INSIGHTS</p><h3>What this run calculates</h3></div><span class="analysis-pulse" aria-hidden="true">↗</span></div><ul id="analysis-insights" class="analysis-insights"></ul><p class="analysis-note">Arithmetic comparison of illustrative equations only; percentages are not treatment effects or disease progression.</p></article>
+          <article id="explainability-dashboard" class="analysis-card explainability-card" aria-label="Synthetic model term explainability">
+            <div class="analysis-heading"><div><p class="analysis-eyebrow">EQUATION-LEVEL EXPLAINABILITY</p><h3 id="explainability-title">TG proxy · Selected scenario</h3></div><label class="analysis-select">OUTPUT<select id="explainability-metric" aria-label="Choose output to explain"><option value="triglyceride">TG proxy</option><option value="ros">ROS proxy</option><option value="ecm">ECM proxy</option></select></label></div>
+            <p class="analysis-note explainability-intro">Cumulative feature-term contributions from the fitted linear derivative surrogate. Lines show how each signed model term adds to or subtracts from the synthetic state change; the vertical marker follows the selected simulation time step.</p>
+            <div class="explainability-layout"><div><div class="explainability-chart"><canvas id="explainability-chart" aria-label="Cumulative model term contributions over arbitrary simulation time"></canvas></div><div id="explainability-legend" class="explainability-legend"></div></div><aside class="explainability-summary"><p id="explainability-dominant" class="explainability-dominant">Run the model to calculate term contributions.</p><div id="explainability-terms" class="explainability-terms"></div><p id="explainability-reconciliation" class="explainability-reconciliation" role="status" aria-live="polite"></p></aside></div>
+            <p class="analysis-note">Method: feature value × fitted coefficient, accumulated over the simulator’s forward-Euler steps. “Difference” shows scenario minus baseline. These explain the synthetic surrogate calculation; they are not SHAP values, biological causation, clinical measurements, or disease progression.</p>
+          </article>
+        </section>
+        <div id="result-content" hidden>
+          <div class="metric-grid">
+            <article class="metric-card"><span class="metric-label">BMI</span><strong id="bmi-value">—</strong><span id="bmi-band" class="metric-foot">Insufficient inputs</span></article>
+            <article class="metric-card"><span class="metric-label">FIB-4</span><strong id="fib4-value">—</strong><span class="metric-foot">Arithmetic only · not interpreted</span></article>
+            <article class="metric-card"><span class="metric-label">ACTIVE PERTURBATIONS</span><strong id="scenario-count">0</strong><span class="metric-foot">Synthetic coefficient perturbations</span></article>
+          </div>
+          <article class="result-card criteria-card"><div class="card-title"><div><p class="eyebrow">MARKER REVIEW</p><h3>Blueprint criteria flags</h3></div><span class="tag-amber">NOT A STAGE</span></div><p class="card-copy">Each flag is evaluated independently. Thresholds come from the supplied blueprint and are not validated diagnostic cutoffs.</p><div id="criteria-list" class="criteria-list"></div><p id="marker-note" class="footnote"></p></article>
+          <article class="result-card chart-card"><div class="card-title"><div><p class="eyebrow">MECHANISTIC CORE</p><h3>Baseline and selected trajectories</h3></div><span class="unit-tag">DIMENSIONLESS UNITS</span></div><p class="card-copy">Five-zone mean trajectories. X axis is arbitrary model time; Y axis is the corresponding relative state. Neither axis represents a clinical unit.</p><div class="chart-wrap"><canvas id="trajectory-chart" aria-label="Baseline and selected synthetic triglyceride, ROS and ECM trajectories over arbitrary model time"></canvas></div><div class="chart-legend"><span><i class="legend-tg"></i>Triglyceride</span><span><i class="legend-ros"></i>ROS</span><span><i class="legend-ecm"></i>ECM</span><span>Solid: selected · dashed: baseline</span></div></article>
+          <article class="result-card comparison-card"><div class="card-title"><div><p class="eyebrow">SCENARIO COMPARISON</p><h3>Compared with toy baseline</h3></div></div><p class="card-copy">Mathematical difference from the same unmodified equations. These percentages are not treatment effects.</p><div id="comparison-list" class="comparison-list"></div></article>
+          <article class="result-card"><div class="card-title"><div><p class="eyebrow">MODEL TRANSPARENCY</p><h3>Assumptions changed</h3></div><div class="export-actions"><button id="download-json" class="text-button" type="button">JSON ↓</button><button id="download-csv" class="text-button" type="button">CSV ↓</button></div></div><p class="card-copy">Observed inputs and arithmetic marker summaries are separate from simulated states. Perturbations are software assumptions only.</p><div id="assumption-list" class="comparison-list"></div></article>
+          <article class="result-card"><div class="card-title"><div><p class="eyebrow">SENSITIVITY</p><h3>Illustrative coefficient range</h3></div><span class="tag-amber">NOT PATIENT UNCERTAINTY</span></div><p id="sensitivity-note" class="card-copy"></p><div id="sensitivity-list" class="comparison-list"></div></article>
+          <article class="result-card oxygen-card"><div class="card-title"><div><p class="eyebrow">ZONATION PDE</p><h3>Oxygen field</h3></div><span class="unit-tag">SYNTHETIC mmHg</span></div><div class="oxygen-strip" id="oxygen-strip" aria-label="Computed illustrative oxygen field from periportal to perivenous zone"></div><div class="oxygen-labels"><span>Zone 1 · periportal</span><span>Zone 3 · perivenous</span></div></article>
+          <div class="model-notes"><strong>Model status</strong><span id="model-version">Synthetic ODE surrogate</span><span id="model-training-note">No patient or external data used.</span><span>PINN not trained · no transition probabilities · no clinical validation</span><span id="genetics-note"></span></div>
+        </div>
+      </section>
+    </div>
+
+    <section class="equations">
+      <div><p class="eyebrow">UNDER THE HOOD</p><h2>Mechanisms,<br><em>not conclusions.</em></h2><p>The scaffold links substrate flux, oxidative stress, matrix turnover and zonal oxygen through transparent equations. The mathematics is inspectable; its coefficients are not clinically established.</p></div>
+      <div class="equation-list"><div><span>01</span><code>dFFA/dt = uptake + DNL − synthesis − β-oxidation</code></div><div><span>02</span><code>dTG/dt = synthesis − export − degradation</code></div><div><span>03</span><code>dROS/dt = k · FFA − antioxidant clearance</code></div><div><span>04</span><code>dECM/dt = HSC activation − MMP degradation</code></div><div><span>05</span><code>∂O₂/∂t + ∇·(vO₂) = D∇²O₂ − uptake</code></div></div>
+    </section>
+
+    <footer><span>LUMA <b>·</b> PROTOTYPE</span><span>NOT FOR CLINICAL USE</span></footer>
+  </main>
+  <script type="module" src="app.js?v=16"></script>
+</body>
+</html>
