@@ -66,22 +66,22 @@ class RequestHandler(SimpleHTTPRequestHandler):
         path = urlsplit(self.path).path[:256]
         logger.info("%s %s %r", self.client_address[0], self.command, path)
 
-    def _is_local_authority(self, value: str | None) -> bool:
-        if not value:
-            return False
-        try:
-            authority = urlsplit("//" + value)
-            return (
-                authority.username is None
-                and authority.password is None
-                and authority.path in ("", "/")
-                and authority.query == ""
-                and authority.fragment == ""
-                and authority.hostname in {"127.0.0.1", "localhost"}
-                and authority.port == self.server.server_port
-            )
-        except ValueError:
-            return False
+   def _is_allowed_authority(self, value: str | None) -> bool:
+    if not value:
+        return False
+    try:
+        authority = urlsplit("//" + value)
+        return (
+            authority.username is None
+            and authority.password is None
+            and authority.path in ("", "/")
+            and authority.query == ""
+            and authority.fragment == ""
+            and authority.hostname is not None
+            and authority.port == self.server.server_port
+        )
+    except ValueError:
+        return False
 
     def _is_local_origin(self, value: str) -> bool:
         try:
@@ -100,7 +100,7 @@ class RequestHandler(SimpleHTTPRequestHandler):
             return False
 
     def _request_is_local(self, *, check_origin: bool) -> bool:
-        if not self._is_local_authority(self.headers.get("Host")):
+        if not self._is_allowed_authority(self.headers.get("Host")):
             self._error(
                 403,
                 "INVALID_HOST",
