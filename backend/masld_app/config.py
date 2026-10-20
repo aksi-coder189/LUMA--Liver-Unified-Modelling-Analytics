@@ -34,7 +34,7 @@ def ensure_supported_runtime() -> None:
 
 @dataclass(frozen=True)
 class Settings:
-    host: str = "127.0.0.1"
+    host: str = "0.0.0.0"
     port: int = 8765
     max_request_bytes: int = 64 * 1024
     api_requests_per_minute: int = 60
@@ -43,11 +43,11 @@ class Settings:
 
 
 def load_settings() -> Settings:
-    host = os.environ.get("MASLD_HOST", "127.0.0.1").strip()
-    if host not in {"127.0.0.1", "localhost"}:
-        raise ValueError(
-            "MASLD_HOST must be 127.0.0.1 or localhost; this prototype is local-only."
-        )
+    host = os.environ.get("MASLD_HOST", "0.0.0.0").strip()
+    
+    allowed_hosts = {"127.0.0.1", "localhost", "0.0.0.0"}
+    if host not in allowed_hosts:
+        raise ValueError("Invalid MASLD_HOST configuration.")
     try:
         port = int(os.environ.get("MASLD_PORT", "8765"))
         max_body = int(os.environ.get("MASLD_MAX_REQUEST_BYTES", str(64 * 1024)))
