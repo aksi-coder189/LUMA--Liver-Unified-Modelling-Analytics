@@ -66,7 +66,7 @@ class RequestHandler(SimpleHTTPRequestHandler):
         path = urlsplit(self.path).path[:256]
         logger.info("%s %s %r", self.client_address[0], self.command, path)
 
-   def _is_allowed_authority(self, value: str | None) -> bool:
+    def _is_allowed_authority(self, value: str | None) -> bool:
         if not value:
             return False
         try:
