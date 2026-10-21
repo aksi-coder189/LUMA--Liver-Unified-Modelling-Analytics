@@ -66,19 +66,37 @@ class RequestHandler(SimpleHTTPRequestHandler):
         path = urlsplit(self.path).path[:256]
         logger.info("%s %s %r", self.client_address[0], self.command, path)
 
+    
     def _is_allowed_authority(self, value: str | None) -> bool:
+        import os
+
         if not value:
             return False
         try:
             authority = urlsplit("//" + value)
+            render_host = os.environ.get(
+                "RENDER_EXTERNAL_HOSTNAME", ""
+            ).strip().lower()
+
+            hostname = (authority.hostname or "").lower()
+            allowed_hosts = {"127.0.0.1", "localhost"}
+            if render_host:
+                allowed_hosts.add(render_host)
+
             return (
                 authority.username is None
                 and authority.password is None
                 and authority.path in ("", "/")
                 and authority.query == ""
                 and authority.fragment == ""
-                and authority.hostname is not None
-                and authority.port == self.server.server_port
+                and hostname in allowed_hosts
+                and (
+                    authority.port == self.server.server_port
+                    or (
+                        hostname == render_host
+                        and authority.port is None
+                    )
+                )
             )
         except ValueError:
             return False
