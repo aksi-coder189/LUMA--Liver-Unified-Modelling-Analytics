@@ -101,21 +101,38 @@ class RequestHandler(SimpleHTTPRequestHandler):
         except ValueError:
             return False
 
+    
     def _is_local_origin(self, value: str) -> bool:
+        import os
+
         try:
             origin = urlsplit(value)
+            render_host = os.environ.get(
+                "RENDER_EXTERNAL_HOSTNAME", ""
+            ).strip().lower()
+
+            if (
+                origin.username is not None
+                or origin.password is not None
+                or origin.path not in ("", "/")
+                or origin.query
+                or origin.fragment
+            ):
+                return False
+
+            hostname = (origin.hostname or "").lower()
+
+            if render_host and hostname == render_host:
+                return origin.scheme == "https" and origin.port in (None, 443)
+
             return (
                 origin.scheme == "http"
-                and origin.username is None
-                and origin.password is None
-                and origin.hostname in {"127.0.0.1", "localhost"}
+                and hostname in {"127.0.0.1", "localhost"}
                 and origin.port == self.server.server_port
-                and origin.path in ("", "/")
-                and not origin.query
-                and not origin.fragment
             )
         except ValueError:
             return False
+
 
     def _request_is_local(self, *, check_origin: bool) -> bool:
         if not self._is_allowed_authority(self.headers.get("Host")):
