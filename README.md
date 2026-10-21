@@ -30,11 +30,13 @@ The mechanistic demonstration evolves four dimensionless states (FFA, triglyceri
 
 ### Team details
 
-**Pending:** add the team name, member names, and any requested roles. These details were not present in the project files supplied for this update.
+Team name :  Oblivion
+Name  : Aakriti Singh 
+Name : Kashish
 
 ### College/incubator information
 
-**Pending:** add the college, incubator, or organization name and any requested program details.
+
 
 ### Demo video
 
