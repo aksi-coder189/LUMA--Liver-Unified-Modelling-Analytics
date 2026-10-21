@@ -67,21 +67,21 @@ class RequestHandler(SimpleHTTPRequestHandler):
         logger.info("%s %s %r", self.client_address[0], self.command, path)
 
    def _is_allowed_authority(self, value: str | None) -> bool:
-    if not value:
-        return False
-    try:
-        authority = urlsplit("//" + value)
-        return (
-            authority.username is None
-            and authority.password is None
-            and authority.path in ("", "/")
-            and authority.query == ""
-            and authority.fragment == ""
-            and authority.hostname is not None
-            and authority.port == self.server.server_port
-        )
-    except ValueError:
-        return False
+        if not value:
+            return False
+        try:
+            authority = urlsplit("//" + value)
+            return (
+                authority.username is None
+                and authority.password is None
+                and authority.path in ("", "/")
+                and authority.query == ""
+                and authority.fragment == ""
+                and authority.hostname is not None
+                and authority.port == self.server.server_port
+            )
+        except ValueError:
+            return False
 
     def _is_local_origin(self, value: str) -> bool:
         try:
